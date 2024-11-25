@@ -3,7 +3,7 @@
 
 This repository contains multiple baseball analytics research questions and solutions implemented in R.
 
-* Question 1 has two parts: predicting if a pitch will be called a strike given the batter didn't swing ad projecting 2025 strikeout rates
+* Question 1 has two parts: predicting if a pitch will be called a strike given the batter didn't swing and projecting 2025 strikeout rates
 * Question 2 is concerned with projecting the pitch mix that a batter will see in the coming season
 * Question 3 is concerned with projecting the professional placement of college players in summer leagues
 
