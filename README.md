@@ -46,12 +46,14 @@ To do this, we will introduce a latent Pólya-Gamma random variable for
 each observation. This allows us to define the following hierarchical
 model
 
-$$\begin{align*}
+$$
+\begin{align*}
 Y_i|B, b&\sim MN_4(1, \pi_i)\text{ where }\tilde\pi_i=f(\psi_i)\text{ and }\psi_i=X_iB+Z_ib\\
 \omega_{ik}&\sim PG(n_{ik},0)\text{ for }i=1,2,3\cdots,n\text{ and }k=1,2,3,\\
 B&\sim N(B_0, \Sigma_B)\\
 b&\sim N(b_0, \Sigma_b)
-\end{align*}$$
+\end{align*
+}$$
 
 Since our model is multinomial and we are working with a vectorized
 version of the regression coefficients, as evidenced by the multivariate
@@ -65,10 +67,12 @@ observation i, respectively.
 Additionally, the link function, $f$, is the stick breaking function.
 This satisfies the following properties
 
-$$\begin{align*}
+$$
+\begin{align*}
 f(\psi_{i})=\frac{\exp(\psi_i)}{1+\exp(\psi_i)}=\tilde\pi_i\\
 \tilde\pi_{ik}=\frac{\pi_{ik}}{1-\sum_{j<k}\pi_{ij}}
-\end{align*}$$
+\end{align*}
+$$
 
 so that the multinomial probabilities are recovered from $\tilde\pi_i$
 via $\pi_{ik}=\tilde\pi_{ik}\prod_{j<k}(1-\tilde\pi_{ij})$ for $k=1,2,3$
@@ -76,19 +80,23 @@ and $\pi_{i4}=\prod_{j=1}^3(1-\tilde\pi_{ij})$.
 
 The above model yields the following conditional posterior distributions
 
-$$\begin{align*}
+$$
+\begin{align*}
 B|Y, b, \omega&\sim N((\sum_{i=1}^nX_i^T\Omega_iX_i+\Sigma_B^{-1})^{-1}(\sum_{i=1}^nX_i^T\Omega_i(\mu_i-Z_ib)+\Sigma_B^{-1}B_0), (\sum_{i=1}^nX_i^T\Omega_iX_i+\Sigma_B^{-1})^{-1})\\
 b|Y, B, \omega&\sim N((\sum_{i=1}^nZ_i^T\Omega_iZ_i+\Sigma_b^{-1})^{-1}(\sum_{i=1}^nZ_i^T\Omega_i(\mu_i-X_iB)+\Sigma_b^{-1}b_0), (\sum_{i=1}^nZ_i^T\Omega_iZ_i+\Sigma_b^{-1})^{-1})\\
 \omega_{ik}|Y, B, b &\sim PG(n_{ik}, \psi_{ik})
-\end{align*}$$
+\end{align*}
+$$
 
 where
 
-$$\begin{align*}
+$$
+\begin{align*}
 \Omega_i=&\text{diag}(\omega_{ik}: k=1,2,3)\\
 n_{ik}=&n_i-\sum_{j<k}Y_{ij}\\
 \mu_{ik}=&\frac{1}{\omega_{ik}}(Y_{ik}-\frac{n_{ik}}{2})
-\end{align*}$$
+\end{align*}
+$$
 
 Note that the definition of $\psi_i=X_iB+Z_ib$ allows for the use of
 random effects in our model. Specifically, our data contains variables
@@ -104,7 +112,9 @@ and the stick-breaking construction, and average to obtain
 $\hat\pi_i=\frac{1}{S}\sum_{s=1}^S\pi_i^{(s)}$. We may then calculate
 the desired probability via:
 
-$$\hat P(\text{strike given no swing})=\frac{\hat\pi_{i1}}{\hat\pi_{i1}+\hat\pi_{i4}}$$
+$$
+\hat P(\text{strike given no swing})=\frac{\hat\pi_{i1}}{\hat\pi_{i1}+\hat\pi_{i4}}
+$$
 
 ## Data Considerations
 
@@ -187,8 +197,6 @@ Brier scores, it uses only half of the data and does not account for
 batter swing decisions. All Brier scores below are computed on the data
 used to fit the models (in-sample).
 
-    ## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-
 | Model          | Brier Score |
 |:---------------|------------:|
 | Simple         |       0.215 |
@@ -225,7 +233,9 @@ $Y_{ij}$ represent the observed response for player $i$ in year $j$ and
 $S_{ij}$ represent the average stuff for player $i$ in year $j$. We can
 then define the following model structure:
 
-$$Y_{ij}\sim MN_K(m_{ij}, \pi_{ij})\qquad\text{where }\pi_{ij}=\text{softmax}(\rho\cdot S_{i,j-1}+X_{ij}B)=\text{softmax}(\eta_{ij})$$
+$$
+Y_{ij}\sim MN_K(m_{ij}, \pi_{ij})\qquad\text{where }\pi_{ij}=\text{softmax}(\rho\cdot S_{i,j-1}+X_{ij}B)=\text{softmax}(\eta_{ij})
+$$
 
 where $\rho$ is a $(K-1)\times 1$ vector,
 $X_{ij}=I_{K-1}\bigotimes x_{ij}^T$, and the linear predictor of the
@@ -324,67 +334,104 @@ Recall that we assume the following
 Now, see that, by breaking the multinomial mass function into a product
 of independent binomial mass functions, we may write
 
-$$f(y_i|B, b)=\prod_{k=1}^{K-1}f(\psi_{ik})^{y_{ik}}(1-f(\psi_{ik}))^{n_{ik}-y_{ik}}=\prod_{k=1}^{K-1}\frac{\exp(\psi_{ik})^{y_{ik}}}{(1+\exp(\psi_{ik}))^{n_{ik}}}$$
+$$
+f(y_i|B, b)=\prod_{k=1}^{K-1}f(\psi_{ik})^{y_{ik}}(1-f(\psi_{ik}))^{n_{ik}-y_{ik}}=\prod_{k=1}^{K-1}\frac{\exp(\psi_{ik})^{y_{ik}}}{(1+\exp(\psi_{ik}))^{n_{ik}}}
+$$
 
 Using the fundamental Pólya-Gamma identity, we may write
-$$\frac{\exp(\psi_{ik})^{y_{ik}}}{(1+\exp(\psi_{ik}))^{n_{ik}}}=2^{-n_{ik}}\exp((y_{ik}-n_{ik}/2)\psi_{ik})\int_{0}^\infty \exp(-\omega_{ik}\psi_{ik}^2/2)p(\omega_{ik})d\omega_{ik}$$
+
+$$
+\frac{\exp(\psi_{ik})^{y_{ik}}}{(1+\exp(\psi_{ik}))^{n_{ik}}}=2^{-n_{ik}}\exp((y_{ik}-n_{ik}/2)\psi_{ik})\int_{0}^\infty \exp(-\omega_{ik}\psi_{ik}^2/2)p(\omega_{ik})d\omega_{ik}
+$$
 
 This implies that the full, joint model of the data and parameters is
 given by
 
-$$P(Y, B, b, \omega)={\Big[}\prod_{i=1}^n\prod_{k=1}^{K-1}2^{-n_{ik}}\exp((y_{ik}-n_{ik}/2)\psi_{ik}-\omega_{ik}\psi_{ik}^2/2)p(\omega_{ik}){\Big]}p(B)p(b)$$
+$$
+P(Y, B, b, \omega)={\Big[}\prod_{i=1}^n\prod_{k=1}^{K-1}2^{-n_{ik}}\exp((y_{ik}-n_{ik}/2)\psi_{ik}-\omega_{ik}\psi_{ik}^2/2)p(\omega_{ik}){\Big]}p(B)p(b)
+$$
 
 We can complete the square in the exponential to obtain the following
 
-$$P(Y, B, b, \omega)={\Big[}\prod_{i=1}^n\prod_{k=1}^{K-1}2^{-n_{ik}}\exp(\frac{-1}{2/\omega_{ik}}(\psi_{ik}-\frac{Y_{ik}-n_{ik}/2}{\omega_{ik}})^2+\frac{(Y_{ik}-n_{ik}/2)^2}{2\omega_{ik}})p(\omega_{ik}){\Big]}p(B)p(b)$$
+$$
+P(Y, B, b, \omega)={\Big[}\prod_{i=1}^n\prod_{k=1}^{K-1}2^{-n_{ik}}\exp(\frac{-1}{2/\omega_{ik}}(\psi_{ik}-\frac{Y_{ik}-n_{ik}/2}{\omega_{ik}})^2+\frac{(Y_{ik}-n_{ik}/2)^2}{2\omega_{ik}})p(\omega_{ik}){\Big]}p(B)p(b)
+$$
 
 By allowing $\Omega_i=\text{diag}(\omega_{ik}: k=1,2,\cdots,K-1)$ and
 $\mu_{ik}=\frac{1}{\omega_{ik}}(Y_{ik}-\frac{n_{ik}}{2})$, we can use
 vector algebra to rewrite this as
 
-$$P(Y, B, b, \omega)={\Big[}\prod_{i=1}^n\exp(\frac{-1}{2}(\psi_i-\mu_i)^T\Omega_i(\psi_i-\mu_i)+\frac{1}{2}\mu_i^T\Omega_i\mu_i)\prod_{k=1}^{K-1}2^{-n_{ik}}p(\omega_{ik}){\Big]}p(B)p(b)$$
+$$
+P(Y, B, b, \omega)={\Big[}\prod_{i=1}^n\exp(\frac{-1}{2}(\psi_i-\mu_i)^T\Omega_i(\psi_i-\mu_i)+\frac{1}{2}\mu_i^T\Omega_i\mu_i)\prod_{k=1}^{K-1}2^{-n_{ik}}p(\omega_{ik}){\Big]}p(B)p(b)
+$$
 
 We can simplify further via
 
-$$P(Y, B, b, \omega)=\exp(\sum_{i=1}^n\frac{-1}{2}(\psi_i-\mu_i)^T\Omega_i(\psi_i-\mu_i)+\frac{1}{2}\mu_i^T\Omega_i\mu_i){\Big[}\prod_{i=1}^n\prod_{k=1}^{K-1}2^{-n_{ik}}p(\omega_{ik}){\Big]}p(B)p(b)$$
+$$
+P(Y, B, b, \omega)=\exp(\sum_{i=1}^n\frac{-1}{2}(\psi_i-\mu_i)^T\Omega_i(\psi_i-\mu_i)+\frac{1}{2}\mu_i^T\Omega_i\mu_i){\Big[}\prod_{i=1}^n\prod_{k=1}^{K-1}2^{-n_{ik}}p(\omega_{ik}){\Big]}p(B)p(b)
+$$
 
 In finding the conditional posterior for $B$, we have
-$$P(B|Y, b, \omega)=c\cdot P(Y, B, b, \omega)=c_1\cdot\exp(\sum_{i=1}^n\frac{-1}{2}(\psi_i-\mu_i)^T\Omega_i(\psi_i-\mu_i))p(B)$$
+
+$$
+P(B|Y, b, \omega)=c\cdot P(Y, B, b, \omega)=c_1\cdot\exp(\sum_{i=1}^n\frac{-1}{2}(\psi_i-\mu_i)^T\Omega_i(\psi_i-\mu_i))p(B)
+$$
 
 And by Normal-Normal conjugacy, we obtain
 
-$$B|Y, b, \omega\sim N((\sum_{i=1}^nX_i^T\Omega_iX_i+\Sigma_B^{-1})^{-1}(\sum_{i=1}^nX_i^T\Omega_i(\mu_i-Z_ib)+\Sigma_B^{-1}B_0), (\sum_{i=1}^nX_i^T\Omega_iX_i+\Sigma_B^{-1})^{-1})$$
+$$
+B|Y, b, \omega\sim N((\sum_{i=1}^nX_i^T\Omega_iX_i+\Sigma_B^{-1})^{-1}(\sum_{i=1}^nX_i^T\Omega_i(\mu_i-Z_ib)+\Sigma_B^{-1}B_0), (\sum_{i=1}^nX_i^T\Omega_iX_i+\Sigma_B^{-1})^{-1})
+$$
 
 Similarly, for $b$
 
-$$b|Y, B, \omega\sim N((\sum_{i=1}^nZ_i^T\Omega_iZ_i+\Sigma_b^{-1})^{-1}(\sum_{i=1}^nZ_i^T\Omega_i(\mu_i-X_iB)+\Sigma_b^{-1}b_0), (\sum_{i=1}^nZ_i^T\Omega_iZ_i+\Sigma_b^{-1})^{-1})$$
+$$
+b|Y, B, \omega\sim N((\sum_{i=1}^nZ_i^T\Omega_iZ_i+\Sigma_b^{-1})^{-1}(\sum_{i=1}^nZ_i^T\Omega_i(\mu_i-X_iB)+\Sigma_b^{-1}b_0), (\sum_{i=1}^nZ_i^T\Omega_iZ_i+\Sigma_b^{-1})^{-1})
+$$
 
 Lastly, for $\omega_{ik}$, we have
-$$P(\omega|Y, B, b)=c\cdot P(Y, B, b, \omega)=c\cdot 2^{-n_{ik}}\exp(\frac{-1}{2/\omega_{ik}}(\psi_{ik}-\frac{Y_{ik}-n_{ik}/2}{\omega_{ik}})^2+\frac{(Y_{ik}-n_{ik}/2)^2}{2\omega_{ik}})p(\omega_{ik})$$
+
+$$
+P(\omega|Y, B, b)=c\cdot P(Y, B, b, \omega)=c\cdot 2^{-n_{ik}}\exp(\frac{-1}{2/\omega_{ik}}(\psi_{ik}-\frac{Y_{ik}-n_{ik}/2}{\omega_{ik}})^2+\frac{(Y_{ik}-n_{ik}/2)^2}{2\omega_{ik}})p(\omega_{ik})
+$$
 
 which, by the exponential tilting property, gives us
 
-$$\omega_{ik}|Y, B, b\sim PG(n_{ik}, \psi_{ik})$$
+$$
+\omega_{ik}|Y, B, b\sim PG(n_{ik}, \psi_{ik})
+$$
 
 # Appendix: Model Derivation for Question 2
 
 ## The Multinomial is an Exponential Dispersion Family
 
 Recall that if $Y\sim MN_k(m,\pi)$, then $Y$ has pmf given by
-$$f(y)=\frac{m!}{y_1!y_2!\cdots y_k!}\pi_1^{y_1}\pi_2^{y_2}\cdots\pi_k^{y_k}$$
+
+$$
+f(y)=\frac{m!}{y_1!y_2!\cdots y_k!}\pi_1^{y_1}\pi_2^{y_2}\cdots\pi_k^{y_k}
+$$
 
 This can be written in the form of an exponential dispersion family. To
 see this, we can exponentiate the natural log of the mass function to
 obtain
-$$f(y)=\exp(\ln(f(y)))=\exp(\ln(m!)+\sum_{i=1}^ky_i\ln(\pi_i)-\ln(y_1!y_2!\cdots y_k!))$$
+
+$$
+f(y)=\exp(\ln(f(y)))=\exp(\ln(m!)+\sum_{i=1}^ky_i\ln(\pi_i)-\ln(y_1!y_2!\cdots y_k!))
+$$
 
 We will convert the mass function to be parametrized in terms of the
 first $k-1$ counts. To do this, note the $\pi_k=1-\sum_{i=1}^{k-1}\pi_i$
 and $y_k=m-\sum_{i=1}^{k-1}y_i$. We can now write
-$$f(y)=\exp(\ln(m!)+\sum_{i=1}^{k-1}y_i\ln(\pi_i)+(m-\sum_{i=1}^{k-1}y_i)\ln(1-\sum_{i=1}^{k-1}\pi_i)-\ln(y_1!y_2!\cdots y_k!))$$
+
+$$
+f(y)=\exp(\ln(m!)+\sum_{i=1}^{k-1}y_i\ln(\pi_i)+(m-\sum_{i=1}^{k-1}y_i)\ln(1-\sum_{i=1}^{k-1}\pi_i)-\ln(y_1!y_2!\cdots y_k!))
+$$
 
 Which can be simplified to
-$$f(y)=\exp(\sum_{i=1}^{k-1}y_i\ln(\frac{\pi_i}{1-\sum_{j=1}^{k-1}\pi_j})+m\ln(1-\sum_{j=1}^{k-1}\pi_j)+\ln(m!)-\ln(y_1!y_2!\cdots y_k!))$$
+
+$$
+f(y)=\exp(\sum_{i=1}^{k-1}y_i\ln(\frac{\pi_i}{1-\sum_{j=1}^{k-1}\pi_j})+m\ln(1-\sum_{j=1}^{k-1}\pi_j)+\ln(m!)-\ln(y_1!y_2!\cdots y_k!))
+$$
 
 If we let $Y=(y_1,y_2,\cdots,y_{k-1})$,
 $\theta=(\ln(\frac{\pi_1}{1-\sum_{j=1}^{k-1}\pi_j}),\ln(\frac{\pi_2}{1-\sum_{j=1}^{k-1}\pi_j}),\cdots,\ln(\frac{\pi_{k-1}}{1-\sum_{j=1}^{k-1}\pi_j}))$,
@@ -400,19 +447,34 @@ $\ln(1-\sum_{i=1}^{k-1}\pi_i)=\ln(\pi_k)$. Now, we shall focus on a
 single $\pi_i$ value. We asserted that
 $\theta_i=\ln(\frac{\pi_i}{1-\sum_{j=1}^{k-1}\pi_j})=\ln(\frac{\pi_i}{\pi_k})$.
 By exponentiating this equation, we have
-$$\pi_i=\pi_ke^{\theta_i}\implies 1=\sum_{i=1}^k\pi_i=\pi_k\sum_{i=1}^ke^{\theta_i}\implies\pi_k=\frac{1}{\sum_{i=1}^ke^{\theta_i}}$$
+
+$$
+\pi_i=\pi_ke^{\theta_i}\implies 1=\sum_{i=1}^k\pi_i=\pi_k\sum_{i=1}^ke^{\theta_i}\implies\pi_k=\frac{1}{\sum_{i=1}^ke^{\theta_i}}
+$$
 
 hence
-$$b(\theta)=-\ln(1-\sum_{i=1}^{k-1}\pi_i)=-\ln(\pi_k)=\ln(\sum_{i=1}^ke^{\theta_i})$$
+
+$$
+b(\theta)=-\ln(1-\sum_{i=1}^{k-1}\pi_i)=-\ln(\pi_k)=\ln(\sum_{i=1}^ke^{\theta_i})
+$$
 
 This result further implies
-$$\pi_i=\frac{e^{\theta_i}}{\sum_{j=1}^ke^{\theta_j}}$$
+
+$$
+\pi_i=\frac{e^{\theta_i}}{\sum_{j=1}^ke^{\theta_j}}
+$$
 
 Further, see that for the $k^{th}$ category
-$$\theta_k=\ln(\frac{\pi_k}{\pi_k})=\ln(1)=0\implies e^{\theta_k}=1$$
+
+$$
+\theta_k=\ln(\frac{\pi_k}{\pi_k})=\ln(1)=0\implies e^{\theta_k}=1
+$$
 
 Which reduces our model to
-$$\pi_i=\frac{e^{\theta_i}}{1+\sum_{j=1}^{k-1}e^{\theta_j}},\qquad b(\theta)=\ln(1+\sum_{j=1}^{k-1}e^{\theta_j})$$
+
+$$
+\pi_i=\frac{e^{\theta_i}}{1+\sum_{j=1}^{k-1}e^{\theta_j}},\qquad b(\theta)=\ln(1+\sum_{j=1}^{k-1}e^{\theta_j})
+$$
 
 ## High Dimensional Form of the Model
 
@@ -425,18 +487,23 @@ onto function, $\eta_i$ in this case must be a $k-1$ vector.
 We can obtain this vector form of the linear predictor by expressing the
 linear predictor as a matrix product
 
-$$\eta_i=x_i^T\begin{bmatrix} 
+$$
+\eta_i=x_i^T\begin{bmatrix} 
 \beta_1 & \beta_2 & \cdots & \beta_{k-1}
-\end{bmatrix}$$
+\end{bmatrix}
+$$
+
 where $\beta_j$ is a $p_x\times1$ vector of coefficients corresponding
 to each outcome category. In order to exploit the large sample theory
 common to maximum likelihood estimation, must find another way to
 express this equation, which we show below
 
-$$\eta_i=\begin{bmatrix}x_i^T & 0 & \cdots & 0\\
+$$
+\eta_i=\begin{bmatrix}x_i^T & 0 & \cdots & 0\\
                       0 & x_i^T & \cdots & 0\\
                       \vdots & \vdots & \ddots & \vdots\\
-                      0 & 0 & \cdots & x_i^T\end{bmatrix}\begin{bmatrix}\beta_1\\\beta_2\\\vdots\\\beta_{k-1}\end{bmatrix}=X_iB$$
+                      0 & 0 & \cdots & x_i^T\end{bmatrix}\begin{bmatrix}\beta_1\\\beta_2\\\vdots\\\beta_{k-1}\end{bmatrix}=X_iB
+$$
 
 where $X_i=I_{k-1}\bigotimes x_i^T$ and
 $B=\begin{bmatrix}\beta_1^T&\beta_2^T&\cdots&\beta_{k-1}^T\end{bmatrix}^T$
@@ -445,43 +512,73 @@ $B=\begin{bmatrix}\beta_1^T&\beta_2^T&\cdots&\beta_{k-1}^T\end{bmatrix}^T$
 
 Using the above, we can write the log likelihood for a multinomial model
 as
-$$l(B)=\sum_{i=1}^n{\Big[}\sum_{j=1}^{k-1}y_{ij}\theta_{ij}-m_i\ln(1+e^{\theta_{i1}}+\cdots+e^{\theta_{i,k-1}})+c(y_i,\phi){\Big]}$$
+
+$$
+l(B)=\sum_{i=1}^n{\Big[}\sum_{j=1}^{k-1}y_{ij}\theta_{ij}-m_i\ln(1+e^{\theta_{i1}}+\cdots+e^{\theta_{i,k-1}})+c(y_i,\phi){\Big]}
+$$
 
 Using vector notation, we can write this as
-$$l(B)=\sum_{i=1}^ny_i^T\theta_i-m_ib(\theta_i)+c(y_i,\phi)$$
+
+$$
+l(B)=\sum_{i=1}^ny_i^T\theta_i-m_ib(\theta_i)+c(y_i,\phi)
+$$
 
 Now, see that we can write
-$$\nabla_B l(B)=\nabla_B\sum_{i=1}^ny_i^T\theta_i-m_ib(\theta_i)+c(y_i,\phi)=\sum_{i=1}^n\nabla_B(y_i^T\theta_i-m_ib(\theta_i))=\sum_{i=1}^n\nabla_Bl_i(B)$$
+
+$$
+\nabla_B l(B)=\nabla_B\sum_{i=1}^ny_i^T\theta_i-m_ib(\theta_i)+c(y_i,\phi)=\sum_{i=1}^n\nabla_B(y_i^T\theta_i-m_ib(\theta_i))=\sum_{i=1}^n\nabla_Bl_i(B)
+$$
 
 where $l_i(B)=y_i^T\theta_i-m_ib(\theta_i)$. We can now use matrix
 calculus to compute derivatives quickly for this model. First, using the
 chain rule, we have
-$$\nabla_Bl_i(B)=\nabla_B(y_i^T\theta_i-m_ib(\theta_i))=\nabla_B\theta_i^T\nabla_{\theta_i}(y_i^T\theta_i-m_ib(\theta_i))$$
+
+$$
+\nabla_Bl_i(B)=\nabla_B(y_i^T\theta_i-m_ib(\theta_i))=\nabla_B\theta_i^T\nabla_{\theta_i}(y_i^T\theta_i-m_ib(\theta_i))
+$$
 
 Under the canonical link, $\theta_i=\eta_i$, so,
 $\nabla_B\theta_i=\nabla_B\eta_i=X_i$. Further, we see that
-$$\nabla_{\theta_i}(y_i^T\theta_i-m_ib(\theta_i))=y_i-m_i\nabla_{\theta_i}b(\theta_i)$$
+
+$$
+\nabla_{\theta_i}(y_i^T\theta_i-m_ib(\theta_i))=y_i-m_i\nabla_{\theta_i}b(\theta_i)
+$$
 
 Using the definition of $b(\theta_i)$ from the last section, we obtain
-$$\nabla_{\theta_i}b(\theta_i)=\begin{bmatrix}
+
+$$
+\nabla_{\theta_i}b(\theta_i)=\begin{bmatrix}
 \frac{e^{\theta_{i1}}}{1+\sum_{j=1}^{k-1}e^{\theta_{ij}}}\\
 \frac{e^{\theta_{i2}}}{1+\sum_{j=1}^{k-1}e^{\theta_{ij}}}\\
 \vdots\\
 \frac{e^{\theta_{ik-1}}}{1+\sum_{j=1}^{k-1}e^{\theta_{ik-1}}}
-\end{bmatrix}=\pi_i$$
+\end{bmatrix}=\pi_i
+$$
 
 Thus, the gradient of the log likelihood is given by
-$$\nabla_Bl(B)=\sum_{i=1}^nX_i^T(y_i-m_i\pi_i)$$
+
+$$
+\nabla_Bl(B)=\sum_{i=1}^nX_i^T(y_i-m_i\pi_i)
+$$
 
 For the hessian matrix, we see that
-$$\nabla^2_Bl(B)=\nabla_B[\nabla_Bl(B)]=\nabla_B\sum_{i=1}^n\nabla_Bl_i(B)=\sum_{i=1}^n\nabla^2_Bl_i(B)$$
+
+$$
+\nabla^2_Bl(B)=\nabla_B[\nabla_Bl(B)]=\nabla_B\sum_{i=1}^n\nabla_Bl_i(B)=\sum_{i=1}^n\nabla^2_Bl_i(B)
+$$
 
 we then can use the Bartlett identities to say
-$$E(\nabla^2_Bl_i(B))=-E(\nabla_Bl_i(B)[\nabla_Bl_i(B)]^T)$$
+
+$$
+E(\nabla^2_Bl_i(B))=-E(\nabla_Bl_i(B)[\nabla_Bl_i(B)]^T)
+$$
 
 This tells us that, via the Bartlett identities and the law of large
 numbers, we have:
-$$E(\nabla^2_Bl(B))\approx-\sum_{i=1}^n\nabla_Bl_i(B)[\nabla_Bl_i(B)]^T=-\sum_{i=1}^nX_i^T(y_i-m_i\pi_i)(y_i-m_i\pi_i)^TX_i$$
+
+$$
+E(\nabla^2_Bl(B))\approx-\sum_{i=1}^n\nabla_Bl_i(B)[\nabla_Bl_i(B)]^T=-\sum_{i=1}^nX_i^T(y_i-m_i\pi_i)(y_i-m_i\pi_i)^TX_i
+$$
 
 We can then employ the Fisher Scoring algorithm (Newton’s Method) to
 find the MLE for our data.
@@ -492,16 +589,22 @@ To incorporate a ridge penalty in our model, we modify the objective we
 are trying to optimize, specifically, we will determine the value of $B$
 that maximizes the following quantity:
 
-$$l(B)-\frac{\lambda}{2}B^TB$$
+$$
+l(B)-\frac{\lambda}{2}B^TB
+$$
 
 Since the derivative is a linear operator, the above calculations remain
 relatively untouched, with the only changes we need to make being:
 
-$$\nabla_Bl(B)={\Big[}\sum_{i=1}^nX_i^T(y_i-m_i\pi_i){\Big]}-\lambda B$$
+$$
+\nabla_Bl(B)={\Big[}\sum_{i=1}^nX_i^T(y_i-m_i\pi_i){\Big]}-\lambda B
+$$
 
 and
 
-$$E(\nabla^2_Bl(B))\approx-\sum_{i=1}^n\nabla_Bl_i(B)[\nabla_Bl_i(B)]^T=-{\Big[}\sum_{i=1}^nX_i^T(y_i-m_i\pi_i)(y_i-m_i\pi_i)^TX_i{\Big]}-\lambda I$$
+$$
+E(\nabla^2_Bl(B))\approx-\sum_{i=1}^n\nabla_Bl_i(B)[\nabla_Bl_i(B)]^T=-{\Big[}\sum_{i=1}^nX_i^T(y_i-m_i\pi_i)(y_i-m_i\pi_i)^TX_i{\Big]}-\lambda I
+$$
 
 which, again, we optimize the objective via Iteratively Reweighted Least
 Squares (Newton’s Method).
