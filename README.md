@@ -48,7 +48,7 @@ model
 
 $$
 \begin{align*}
-Y_i|B, b&\sim MN_4(1, \pi_i)\text{ where }\tilde\pi_i=f(\psi_i)\text{ and }\psi_i=X_iB+Z_ib\\
+Y_i|B, b &\sim MN_4(1, \pi_i)\text{ where }\tilde\pi_i=f(\psi_i)\text{ and }\psi_i=X_iB+Z_ib\\
 \omega_{ik}&\sim PG(n_{ik},0)\text{ for }i=1,2,3\cdots,n\text{ and }k=1,2,3,\\
 B&\sim N(B_0, \Sigma_B)\\
 b&\sim N(b_0, \Sigma_b)
