@@ -69,8 +69,8 @@ This satisfies the following properties
 
 $$
 \begin{align*}
-f(\psi_{i})=\frac{\exp(\psi_i)}{1+\exp(\psi_i)}=\tilde\pi_i\\
-\tilde\pi_{ik}=\frac{\pi_{ik}}{1-\sum_{j<k}\pi_{ij}}
+f(\psi_{i})&=\frac{\exp(\psi_i)}{1+\exp(\psi_i)}=\tilde\pi_i\\
+\tilde\pi_{ik}&=\frac{\pi_{ik}}{1-\sum_{j<k}\pi_{ij}}
 \end{align*}
 $$
 
