@@ -68,10 +68,10 @@ Additionally, the link function, $f$, is the stick breaking function.
 This satisfies the following properties
 
 $$
-\begin{align*}
+\begin{aligned}
 f(\psi_{i})&=\frac{\exp(\psi_i)}{1+\exp(\psi_i)}=\tilde\pi_i\\
 \tilde\pi_{ik}&=\frac{\pi_{ik}}{1-\sum_{j<k}\pi_{ij}}
-\end{align*}
+\end{aligned}
 $$
 
 so that the multinomial probabilities are recovered from $\tilde\pi_i$
