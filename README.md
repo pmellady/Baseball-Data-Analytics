@@ -502,7 +502,7 @@ $$
 \eta_i=\begin{bmatrix}x_i^T & 0 & \cdots & 0\\
                       0 & x_i^T & \cdots & 0\\
                       \vdots & \vdots & \ddots & \vdots\\
-                      0 & 0 & \cdots & x_i^T\end{bmatrix}\begin{bmatrix}\beta_1 \\ \beta_2 \\ \vdots \\ \beta_{k-1}\end{bmatrix}=X_iB
+                      0 & 0 & \cdots & x_i^T\end{bmatrix}\begin{bmatrix}\beta_1 \\ \beta_2 \\ \cdots \\ \beta_{k-1}\end{bmatrix}=X_iB
 $$
 
 where $X_i=I_{k-1}\bigotimes x_i^T$ and
