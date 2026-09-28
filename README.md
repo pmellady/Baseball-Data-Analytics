@@ -52,8 +52,8 @@ Y_i|B, b&\sim MN_4(1, \pi_i)\text{ where }\tilde\pi_i=f(\psi_i)\text{ and }\psi_
 \omega_{ik}&\sim PG(n_{ik},0)\text{ for }i=1,2,3\cdots,n\text{ and }k=1,2,3,\\
 B&\sim N(B_0, \Sigma_B)\\
 b&\sim N(b_0, \Sigma_b)
-\end{align*
-}$$
+\end{align*}
+$$
 
 Since our model is multinomial and we are working with a vectorized
 version of the regression coefficients, as evidenced by the multivariate
