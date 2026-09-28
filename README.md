@@ -507,7 +507,9 @@ $$
 
 where $X_i=I_{k-1}\bigotimes x_i^T$ and
 
-$B=\begin{bmatrix}\beta_1^T&\beta_2^T&\cdots&\beta_{k-1}^T\end{bmatrix}^T$
+$$
+B=\begin{bmatrix}\beta_1^T&\beta_2^T&\cdots&\beta_{k-1}^T\end{bmatrix}^T
+$$
 
 ## MLE Estimation for $\beta$
 
