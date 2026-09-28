@@ -32,26 +32,32 @@ where $x_i$ and $z_i$ are the vector of fixed and random covariates for observat
 
 Additionally, the link function, $f$, is the stick breaking function. This satisfies the following properties
 
+$$
 \begin{align*}
 f(\psi_{i})=\frac{\exp(\psi_i)}{1+\exp(\psi_i)}=\tilde\pi_i\\
 \tilde\pi_{ik}=\frac{\pi_{ik}}{1-\sum_{j<k}\pi_{ij}}
 \end{align*}
+$$
 
 The above model yields the following conditional posterior distributions
 
+$$
 \begin{align*}
 B|Y, b, \omega&\sim N((\sum_{i=1}^nX_i^T\Omega_iX_i+\Sigma_B^{-1})^{-1}(\sum_{i=1}^nX_i^T\Omega_i(\mu_i-Z_ib)-\Sigma_B^{-1}B_0), (\sum_{i=1}^nX_i^T\Omega_iX_i+\Sigma_B^{-1})^{-1})\\
 b|Y, B, \omega&\sim N((\sum_{i=1}^nZ_i^T\Omega_iZ_i+\Sigma_b^{-1})^{-1}(\sum_{i=1}^nZ_i^T\Omega_i(\mu_i-X_iB)-\Sigma_b^{-1}b_0), (\sum_{i=1}^nZ_i^T\Omega_iZ_i+\Sigma_b^{-1})^{-1})\\
 \omega_{ik}|Y, B, b &\sim PG(n_{ik}, \psi_{ik})
 \end{align*}
+$$
 
 where
 
+$$
 \begin{align*}
 \Omega_i=&\text{diag}(\omega_{ik}: k=1,2,3)\\
 n_{ik}=&n_i-\sum_{j<k}Y_{ij}\\
 \mu_{ik}=&\frac{1}{\omega_{ik}}(Y_{ik}-\frac{n_{ik}}{2})
 \end{align*}
+$$
 
 Note that the definition of $\psi_i=X_iB+Z_ib$ allows for the use of random effects in our model. Specifically, our data contains variables indicating the pitcher, batter, catcher, and umpire. Setting the random effect design matrix, $Z$, to the dummy encoded levels of the player specific variables allows for each participant of a pitch event to contribute a unique value to the probabilities of the outcomes.
 
